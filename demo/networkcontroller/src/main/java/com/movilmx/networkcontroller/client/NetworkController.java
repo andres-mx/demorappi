@@ -2,8 +2,6 @@ package com.movilmx.networkcontroller.client;
 
 import android.content.Context;
 
-import com.movilmx.networkcontroller.BuildConfig;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -15,24 +13,27 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MovieClient {
+public class NetworkController {
     private static Retrofit     client = null;
     private static int          REQUEST_TIMEOUT = 60;
     private static OkHttpClient okHttpClient;
+    private static MovieService movieService;
 
-    public static Retrofit getClient(Context context) {
-
+    public NetworkController(Context context, String baseUrl) throws IOException {
         if (okHttpClient == null)
             initOkHttp(context);
 
-        if (client == null) {
+        if (null == client) {
             client = new Retrofit.Builder()
-                    .baseUrl(BuildConfig.THEMOVIE)
+                    .baseUrl(baseUrl)
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-        return client;
+
+        if (null == movieService) {
+            movieService = client.create(MovieService.class);
+        }
     }
 
     private static void initOkHttp(final Context context) {
@@ -60,5 +61,9 @@ public class MovieClient {
         });
 
         okHttpClient = httpClient.build();
+    }
+
+    public MovieService getMovieService(){
+        return movieService;
     }
 }
