@@ -1,4 +1,7 @@
-package com.movilmx.networkcontroller.models;
+package com.movilmx.networkcontroller.models.topRated.request;
 
-public class TopRatedRequest {
+import com.movilmx.networkcontroller.GenericRequest;
+
+public class TopRatedRequest extends GenericRequest {
+    public static final String TAG = TopRatedRequest.class.getSimpleName();
 }
