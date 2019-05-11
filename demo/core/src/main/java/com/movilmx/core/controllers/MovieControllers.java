@@ -10,7 +10,9 @@ import com.movilmx.core.builder.MovieControllerObjectBuilder;
 import com.movilmx.core.communication.MovieControllerNotifier;
 import com.movilmx.core.communication.MovieControllerObject;
 import com.movilmx.networkcontroller.client.NetworkController;
+import com.movilmx.networkcontroller.models.popular.Popular;
 import com.movilmx.networkcontroller.models.topRated.response.TopRated;
+import com.movilmx.networkcontroller.models.upComing.UpComing;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,6 +70,92 @@ public class MovieControllers extends AbstractMovieController {
 
             @Override
             public void onFailure(Call<TopRated> call, Throwable t) {
+                Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
+                movieControllerNotifier.movieControllerEvent(
+                        MovieControllerNotifier.MovieControllerEventType.WARNING,
+                        new MovieControllerObject().setCode(-1).setMsg(t.getLocalizedMessage()));
+            }
+        });
+    }
+
+    @Override
+    public void requestUpComing(String numberPage, MovieControllerNotifier movieControllerNotifier) throws Exception {
+        Call<UpComing> call = getClient().getMovieService().getUpComing
+                ("1", "cf689d1c71b97032eca0391929094623");
+        call.enqueue(new Callback<UpComing>() {
+            @Override
+            public void onResponse(Call<UpComing> call, Response<UpComing> response) {
+                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+                MovieControllerObjectBuilder movieControllerObjectBuilder
+                        = new MovieControllerObjectBuilder();
+                try{
+                    if (null != response){
+                        UpComing topRated = response.body();
+
+                        movieControllerObjectBuilder.setCode(0)
+                                .setMsg("OK")
+                                .setData(topRated);
+
+                        movieControllerNotifier.movieControllerEvent(
+                                MovieControllerNotifier.MovieControllerEventType.UPCOMING,
+                                movieControllerObjectBuilder.build());
+                    }else {
+                        movieControllerNotifier.movieControllerEvent(
+                                MovieControllerNotifier.MovieControllerEventType.WARNING,
+                                new MovieControllerObject().setCode(-1).setMsg("La respuesta es nula"));
+                    }
+                }catch(Exception e){
+                    movieControllerNotifier.movieControllerEvent(
+                            MovieControllerNotifier.MovieControllerEventType.WARNING,
+                            new MovieControllerObject(e));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpComing> call, Throwable t) {
+                Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
+                movieControllerNotifier.movieControllerEvent(
+                        MovieControllerNotifier.MovieControllerEventType.WARNING,
+                        new MovieControllerObject().setCode(-1).setMsg(t.getLocalizedMessage()));
+            }
+        });
+    }
+
+    @Override
+    public void requestPopular(String numberPage, MovieControllerNotifier movieControllerNotifier) throws Exception {
+        Call<Popular> call = getClient().getMovieService().getPopular
+                ("1", "cf689d1c71b97032eca0391929094623");
+        call.enqueue(new Callback<Popular>() {
+            @Override
+            public void onResponse(Call<Popular> call, Response<Popular> response) {
+                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+                MovieControllerObjectBuilder movieControllerObjectBuilder
+                        = new MovieControllerObjectBuilder();
+                try{
+                    if (null != response){
+                        Popular topRated = response.body();
+
+                        movieControllerObjectBuilder.setCode(0)
+                                .setMsg("OK")
+                                .setData(topRated);
+
+                        movieControllerNotifier.movieControllerEvent(
+                                MovieControllerNotifier.MovieControllerEventType.POPULAR,
+                                movieControllerObjectBuilder.build());
+                    }else {
+                        movieControllerNotifier.movieControllerEvent(
+                                MovieControllerNotifier.MovieControllerEventType.WARNING,
+                                new MovieControllerObject().setCode(-1).setMsg("La respuesta es nula"));
+                    }
+                }catch(Exception e){
+                    movieControllerNotifier.movieControllerEvent(
+                            MovieControllerNotifier.MovieControllerEventType.WARNING,
+                            new MovieControllerObject(e));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Popular> call, Throwable t) {
                 Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
                 movieControllerNotifier.movieControllerEvent(
                         MovieControllerNotifier.MovieControllerEventType.WARNING,

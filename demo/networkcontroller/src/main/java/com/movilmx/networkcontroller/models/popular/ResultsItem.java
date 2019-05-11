@@ -1,4 +1,4 @@
-package com.movilmx.networkcontroller.models.topRated.response;
+package com.movilmx.networkcontroller.models.popular;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
@@ -33,7 +33,7 @@ public class ResultsItem{
 	private String releaseDate;
 
 	@SerializedName("vote_average")
-	private float voteAverage;
+	private double voteAverage;
 
 	@SerializedName("popularity")
 	private double popularity;
@@ -119,11 +119,11 @@ public class ResultsItem{
 		return releaseDate;
 	}
 
-	public void setVoteAverage(float voteAverage){
+	public void setVoteAverage(double voteAverage){
 		this.voteAverage = voteAverage;
 	}
 
-	public float getVoteAverage(){
+	public double getVoteAverage(){
 		return voteAverage;
 	}
 

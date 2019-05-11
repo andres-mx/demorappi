@@ -14,4 +14,8 @@ public abstract class AbstractMovieController extends AbstractController {
     }
 
     public abstract void requestMovies(String numberPage, final MovieControllerNotifier movieControllerNotifier) throws Exception;
+
+    public abstract void requestUpComing(String numberPage, final MovieControllerNotifier movieControllerNotifier) throws Exception;
+
+    public abstract void requestPopular(String numberPage, final  MovieControllerNotifier movieControllerNotifier) throws Exception;
 }

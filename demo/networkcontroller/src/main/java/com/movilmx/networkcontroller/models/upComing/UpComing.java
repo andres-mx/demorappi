@@ -1,10 +1,13 @@
-package com.movilmx.networkcontroller.models.topRated.response;
+package com.movilmx.networkcontroller.models.upComing;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 import com.movilmx.networkcontroller.models.popular.ResultsItem;
 
-public class TopRated{
+public class UpComing{
+
+	@SerializedName("dates")
+	private Dates dates;
 
 	@SerializedName("page")
 	private int page;
@@ -17,6 +20,14 @@ public class TopRated{
 
 	@SerializedName("total_results")
 	private int totalResults;
+
+	public void setDates(Dates dates){
+		this.dates = dates;
+	}
+
+	public Dates getDates(){
+		return dates;
+	}
 
 	public void setPage(int page){
 		this.page = page;
@@ -53,8 +64,9 @@ public class TopRated{
 	@Override
  	public String toString(){
 		return 
-			"TopRated{" + 
-			"page = '" + page + '\'' + 
+			"UpComing{" + 
+			"dates = '" + dates + '\'' + 
+			",page = '" + page + '\'' + 
 			",total_pages = '" + totalPages + '\'' + 
 			",results = '" + results + '\'' + 
 			",total_results = '" + totalResults + '\'' + 

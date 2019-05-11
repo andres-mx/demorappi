@@ -1,10 +1,9 @@
-package com.movilmx.networkcontroller.models.topRated.response;
+package com.movilmx.networkcontroller.models.popular;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
-import com.movilmx.networkcontroller.models.popular.ResultsItem;
 
-public class TopRated{
+public class Popular{
 
 	@SerializedName("page")
 	private int page;
@@ -53,7 +52,7 @@ public class TopRated{
 	@Override
  	public String toString(){
 		return 
-			"TopRated{" + 
+			"Popular{" + 
 			"page = '" + page + '\'' + 
 			",total_pages = '" + totalPages + '\'' + 
 			",results = '" + results + '\'' + 
