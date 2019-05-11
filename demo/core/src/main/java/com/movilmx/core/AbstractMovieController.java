@@ -1,4 +1,17 @@
 package com.movilmx.core;
 
-public class AbstractMovieController {
+import com.movilmx.core.communication.MovieControllerNotifier;
+import com.movilmx.networkcontroller.client.NetworkController;
+
+/**
+ * Clase abstracta del controlador de movies
+ * La intención es tener un objeto génerico para los métodos de {@link AbstractMovieController}
+ */
+public abstract class AbstractMovieController extends AbstractController {
+
+    public AbstractMovieController(NetworkController client) {
+        super(client);
+    }
+
+    public abstract void requestMovies(String numberPage, final MovieControllerNotifier movieControllerNotifier) throws Exception;
 }
