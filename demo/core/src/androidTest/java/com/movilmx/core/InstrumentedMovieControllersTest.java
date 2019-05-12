@@ -6,6 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.movilmx.core.communication.MovieControllerNotifier;
 import com.movilmx.core.controllers.MovieControllers;
 import com.movilmx.core.videos.Container;
+import com.movilmx.networkcontroller.models.detailMovies.DetailMovie;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -98,6 +99,30 @@ public class InstrumentedMovieControllersTest {
 
         synchronized (popular){
             popular.wait();
+        }
+    }
+
+    /**
+     * Prueba para un caso exitoso del servicio del detalle de una película
+     * @throws Exception
+     */
+    @Test
+    public void getDetailVideo() throws Exception {
+        final Object detailVideo = new Object();
+        movieControllers.requestDetailVideo("19404", (eventType, movieControllerObject) -> {
+            assertNotNull(eventType);
+            assertEquals(MovieControllerNotifier.MovieControllerEventType.DETAILVIDEO,eventType);
+            assertNotNull(movieControllerObject);
+            assertNotNull(movieControllerObject.getData());
+            assertThat(movieControllerObject.getData(),instanceOf(DetailMovie.class));
+            assertNotNull(((DetailMovie)movieControllerObject.getData()));
+            synchronized (detailVideo){
+                detailVideo.notify();
+            }
+        });
+
+        synchronized (detailVideo){
+            detailVideo.wait();
         }
     }
 }

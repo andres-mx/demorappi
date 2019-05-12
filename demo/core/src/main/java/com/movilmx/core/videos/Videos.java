@@ -5,6 +5,7 @@ public class Videos {
     private String title;
     private String description;
     private String image;
+    private int    id;
 
     public String getTitle() {
         return title;
@@ -28,5 +29,13 @@ public class Videos {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

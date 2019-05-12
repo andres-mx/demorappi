@@ -2,16 +2,26 @@ package com.movilmx.core.ui;
 
 import android.view.View;
 
+import androidx.annotation.CallSuper;
+
 import com.movilmx.core.communication.MovieControllerNotifier;
 import com.movilmx.core.communication.MovieControllerObject;
 import com.movilmx.core.controllers.MovieControllers;
+import com.movilmx.core.videos.Videos;
 
-public class GFragment extends GenericFragment implements MovieControllerNotifier {
+public class GFragment extends GenericFragment implements MovieControllerNotifier, UIEvent {
     public static final String TAG = GFragment.class.getSimpleName();
 
     @Override
     public void setRootView(View rootView) {
         super.setRootView(rootView);
+    }
+
+    public void detailVideo(int id, Videos videos){
+        getGActivity().addFragment(
+                getGActivity()
+                        .getFragmentsFactory()
+                        .getMovieDetailFragment(id, videos));
     }
 
     /**
@@ -30,5 +40,13 @@ public class GFragment extends GenericFragment implements MovieControllerNotifie
     @Override
     public MovieControllers getMovieController() {
         return MovieControllers.getInstance();
+    }
+
+    @CallSuper
+    @Override
+    public void event(UIEventType eventType, UIObject uiObject) {
+        if (eventType == UIEventType.WARNING){
+            manageException(uiObject.getException());
+        }
     }
 }

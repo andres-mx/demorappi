@@ -79,7 +79,7 @@ public abstract class GenericFragment extends Fragment {
         unbindDrawables(rootView);
     }
 
-    public GenericActivity getWGActivity(){
+    public GenericActivity getGActivity(){
         return (GenericActivity) getActivity();
     }
 

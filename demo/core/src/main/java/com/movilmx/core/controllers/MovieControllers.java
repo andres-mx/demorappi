@@ -11,6 +11,7 @@ import com.movilmx.core.communication.MovieControllerNotifier;
 import com.movilmx.core.communication.MovieControllerObject;
 import com.movilmx.core.conversor.Middleware;
 import com.movilmx.core.videos.Container;
+import com.movilmx.networkcontroller.models.detailMovies.DetailMovie;
 import com.movilmx.networkcontroller.models.popular.Popular;
 import com.movilmx.networkcontroller.models.topRated.response.TopRated;
 import com.movilmx.networkcontroller.models.upComing.UpComing;
@@ -50,7 +51,6 @@ public class MovieControllers extends AbstractMovieController {
         call.enqueue(new Callback<TopRated>() {
             @Override
             public void onResponse(Call<TopRated> call, Response<TopRated> response) {
-                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
                 MovieControllerObjectBuilder movieControllerObjectBuilder
                         = new MovieControllerObjectBuilder();
                 try{
@@ -77,7 +77,6 @@ public class MovieControllers extends AbstractMovieController {
 
             @Override
             public void onFailure(Call<TopRated> call, Throwable t) {
-                Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
                 movieControllerNotifier.movieControllerEvent(
                         MovieControllerNotifier.MovieControllerEventType.WARNING,
                         new MovieControllerObject().setCode(-1).setMsg(t.getLocalizedMessage()));
@@ -92,7 +91,6 @@ public class MovieControllers extends AbstractMovieController {
         call.enqueue(new Callback<UpComing>() {
             @Override
             public void onResponse(Call<UpComing> call, Response<UpComing> response) {
-                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
                 MovieControllerObjectBuilder movieControllerObjectBuilder
                         = new MovieControllerObjectBuilder();
                 try{
@@ -119,7 +117,6 @@ public class MovieControllers extends AbstractMovieController {
 
             @Override
             public void onFailure(Call<UpComing> call, Throwable t) {
-                Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
                 movieControllerNotifier.movieControllerEvent(
                         MovieControllerNotifier.MovieControllerEventType.WARNING,
                         new MovieControllerObject().setCode(-1).setMsg(t.getLocalizedMessage()));
@@ -134,7 +131,6 @@ public class MovieControllers extends AbstractMovieController {
         call.enqueue(new Callback<Popular>() {
             @Override
             public void onResponse(Call<Popular> call, Response<Popular> response) {
-                Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
                 MovieControllerObjectBuilder movieControllerObjectBuilder
                         = new MovieControllerObjectBuilder();
                 try{
@@ -161,7 +157,48 @@ public class MovieControllers extends AbstractMovieController {
 
             @Override
             public void onFailure(Call<Popular> call, Throwable t) {
-                Log.d(TAG, "onFailure() called with: call = [" + call + "], t = [" + t + "]");
+                movieControllerNotifier.movieControllerEvent(
+                        MovieControllerNotifier.MovieControllerEventType.WARNING,
+                        new MovieControllerObject().setCode(-1).setMsg(t.getLocalizedMessage()));
+            }
+        });
+    }
+
+    @Override
+    public void requestDetailVideo(String videoId, MovieControllerNotifier movieControllerNotifier) {
+        Call<DetailMovie> call = getClient().getMovieService().getDetailMovie(videoId, "cf689d1c71b97032eca0391929094623");
+        call.enqueue(new Callback<DetailMovie>() {
+            @Override
+            public void onResponse(Call<DetailMovie> call, Response<DetailMovie> response) {
+                MovieControllerObjectBuilder movieControllerObjectBuilder
+                        = new MovieControllerObjectBuilder();
+
+                try{
+                    if (null != response){
+//                        Container container = Middleware.cleanResponse(response.body());
+                        Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
+                        DetailMovie detailMovie = response.body();
+                        movieControllerObjectBuilder.setCode(0)
+                                .setMsg("OK")
+                                .setData(detailMovie);
+
+                        movieControllerNotifier.movieControllerEvent(
+                                MovieControllerNotifier.MovieControllerEventType.DETAILVIDEO,
+                                movieControllerObjectBuilder.build());
+                    }else {
+                        movieControllerNotifier.movieControllerEvent(
+                                MovieControllerNotifier.MovieControllerEventType.WARNING,
+                                new MovieControllerObject().setCode(-1).setMsg("La respuesta es nula"));
+                    }
+                }catch(Exception e){
+                    movieControllerNotifier.movieControllerEvent(
+                            MovieControllerNotifier.MovieControllerEventType.WARNING,
+                            new MovieControllerObject(e));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DetailMovie> call, Throwable t) {
                 movieControllerNotifier.movieControllerEvent(
                         MovieControllerNotifier.MovieControllerEventType.WARNING,
                         new MovieControllerObject().setCode(-1).setMsg(t.getLocalizedMessage()));

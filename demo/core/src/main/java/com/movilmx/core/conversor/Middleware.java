@@ -71,6 +71,7 @@ public class Middleware {
                 videos.setTitle(resultsItem.getTitle());
                 videos.setDescription(resultsItem.getOverview());
                 videos.setImage(resultsItem.getPosterPath());
+                videos.setId(resultsItem.getId());
 
             }
         }catch(Exception e){

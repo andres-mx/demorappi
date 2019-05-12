@@ -14,6 +14,7 @@ public interface MovieControllerNotifier {
         POPULAR, //Películas más populares
         TOPRATED, //Películas top
         UPCOMING, //Peliculas que se estrenarán
+        DETAILVIDEO, //Detalle del vídeo
         WARNING //Error
     }
 }
