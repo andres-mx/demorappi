@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView
+    android:id                         ="@+id/cv_container"
+    android:elevation                  ="4dp"
+    android:layout_width               ="match_parent"
+    android:layout_height              ="wrap_content"
+    android:clipChildren               ="false"
+    android:foreground                 ="?android:selectableItemBackground"
+    card_view:cardPreventCornerOverlap ="true"
+    card_view:cardUseCompatPadding     ="true"
+    xmlns:android                      ="http://schemas.android.com/apk/res/android"
+    xmlns:card_view                    ="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width          ="match_parent"
+        android:layout_height         ="match_parent"
+        android:orientation           ="vertical"
+        android:layout_alignParentTop ="true"
+        android:paddingLeft           ="4dp"
+        android:paddingRight          ="4dp"
+        android:layout_marginTop      ="6dp">
 
-</LinearLayout>
+        <ImageView
+            android:id                      ="@+id/iv_video_image"
+            android:layout_marginTop        ="4dp"
+            android:layout_width            ="70dp"
+            android:layout_height           ="70dp"
+            android:background              ="@mipmap/ic_launcher"
+            android:layout_gravity          ="center_horizontal" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id                 ="@+id/tv_title"
+            android:layout_width       ="match_parent"
+            android:layout_height      ="wrap_content"
+            android:layout_toRightOf   ="@id/iv_video_image"
+            android:layout_marginStart ="12dp"
+            android:layout_marginEnd   ="12dp"
+            android:textColor          ="@color/gray_dark"
+            android:text               ="$$$$$$$$"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+
