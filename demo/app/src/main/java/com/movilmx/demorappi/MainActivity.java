@@ -1,6 +1,7 @@
 package com.movilmx.demorappi;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 
@@ -13,6 +14,7 @@ import com.movilmx.demorappi.fragments.TopRatedFragment;
 import com.movilmx.demorappi.fragments.UpComingFragment;
 
 public class MainActivity extends GenericActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

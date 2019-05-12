@@ -3,30 +3,64 @@ package com.movilmx.demorappi.fragments;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.movilmx.core.communication.MovieControllerObject;
+import com.movilmx.core.ui.GFragment;
+import com.movilmx.core.videos.Container;
 import com.movilmx.demorappi.R;
+import com.movilmx.demorappi.videos.VideosAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class PopularFragment extends Fragment {
-
-
-    public PopularFragment() {
-        // Required empty public constructor
-    }
-
+public class PopularFragment extends GFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.f_popular, container, false);
+        setRootView(
+                inflater.inflate(
+                                R.layout.f_popular,
+                                container,
+                                false));
+        assignViews();
+        return getRootView();
     }
 
+    @Override
+    public void movieControllerEvent(MovieControllerEventType eventType,
+                                     MovieControllerObject movieControllerObject) {
+        super.movieControllerEvent(eventType, movieControllerObject);
+        switch (eventType){
+            case POPULAR:{
+                videoContainer = (Container) movieControllerObject.getData();
+                drawList();
+                break;
+            }
+        }
+    }
+
+    private void drawList(){
+        try{
+            videosAdapter = new VideosAdapter();
+            rvVideos     .setAdapter(videosAdapter);
+            videosAdapter.setVideos(videoContainer.getVideos());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void assignViews(){
+        rvVideos = getRootView().findViewById(R.id.rv_videos);
+        rvVideos.setHasFixedSize(true);
+        rvVideos.setItemViewCacheSize(10);
+        getMovieController().requestPopular("1", this);
+    }
+
+    private RecyclerView      rvVideos;
+    private VideosAdapter     videosAdapter;
+    private Container         videoContainer;
 }
