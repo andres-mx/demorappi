@@ -11,12 +11,10 @@ import androidx.fragment.app.Fragment;
 
 import com.movilmx.core.AbstractMovieController;
 import com.movilmx.core.BuildConfig;
-import com.movilmx.core.communication.MovieControllerNotifier;
-import com.movilmx.core.communication.MovieControllerObject;
 
 import java.util.Objects;
 
-public abstract class GenericFragment extends Fragment implements MovieControllerNotifier {
+public abstract class GenericFragment extends Fragment {
     public static String TAG = GenericFragment.class.getSimpleName();
 
     private View rootView;//Layout general del fragment
@@ -49,14 +47,6 @@ public abstract class GenericFragment extends Fragment implements MovieControlle
             }
         }catch (Exception ex){
             ex.printStackTrace();
-        }
-    }
-
-    @Override
-    public void movieControllerEvent(MovieControllerEventType eventType,
-                                     MovieControllerObject movieControllerObject) {
-        if (eventType == MovieControllerEventType.WARNING){
-            manageException(movieControllerObject.getException());
         }
     }
 

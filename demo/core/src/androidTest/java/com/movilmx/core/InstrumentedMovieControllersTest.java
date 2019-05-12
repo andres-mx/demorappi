@@ -5,9 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.movilmx.core.communication.MovieControllerNotifier;
 import com.movilmx.core.controllers.MovieControllers;
-import com.movilmx.networkcontroller.models.popular.Popular;
-import com.movilmx.networkcontroller.models.topRated.response.TopRated;
-import com.movilmx.networkcontroller.models.upComing.UpComing;
+import com.movilmx.core.videos.Container;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,8 +41,8 @@ public class InstrumentedMovieControllersTest {
             assertEquals(MovieControllerNotifier.MovieControllerEventType.TOPRATED,eventType);
             assertNotNull(movieControllerObject);
             assertNotNull(movieControllerObject.getData());
-            assertThat(movieControllerObject.getData(),instanceOf(TopRated.class));
-            assertNotNull(((TopRated)movieControllerObject.getData()).getResults());
+            assertThat(movieControllerObject.getData(),instanceOf(Container.class));
+            assertNotNull(((Container)movieControllerObject.getData()).getVideos());
             synchronized (topRated){
                 topRated.notify();
             }
@@ -67,8 +65,8 @@ public class InstrumentedMovieControllersTest {
             assertEquals(MovieControllerNotifier.MovieControllerEventType.UPCOMING,eventType);
             assertNotNull(movieControllerObject);
             assertNotNull(movieControllerObject.getData());
-            assertThat(movieControllerObject.getData(),instanceOf(UpComing.class));
-            assertNotNull(((UpComing)movieControllerObject.getData()).getResults());
+            assertThat(movieControllerObject.getData(),instanceOf(Container.class));
+            assertNotNull(((Container)movieControllerObject.getData()).getVideos());
             synchronized (upComing){
                 upComing.notify();
             }
@@ -91,8 +89,8 @@ public class InstrumentedMovieControllersTest {
             assertEquals(MovieControllerNotifier.MovieControllerEventType.POPULAR,eventType);
             assertNotNull(movieControllerObject);
             assertNotNull(movieControllerObject.getData());
-            assertThat(movieControllerObject.getData(),instanceOf(Popular.class));
-            assertNotNull(((Popular)movieControllerObject.getData()).getResults());
+            assertThat(movieControllerObject.getData(),instanceOf(Container.class));
+            assertNotNull(((Container)movieControllerObject.getData()).getVideos());
             synchronized (popular){
                 popular.notify();
             }
