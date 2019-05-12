@@ -4,11 +4,11 @@ public class MovieControllerObject {
     private int       code;
     private String    msg;
     private Object    data;
-    private Throwable exception;
+    private Exception exception;
 
     public MovieControllerObject(){ }
 
-    public MovieControllerObject(Throwable exception){
+    public MovieControllerObject(Exception exception){
         this.exception = exception;
     }
 
@@ -45,11 +45,11 @@ public class MovieControllerObject {
         return this;
     }
 
-    public Throwable getException() {
+    public Exception getException() {
         return exception;
     }
 
-    public void setException(Throwable exception) {
+    public void setException(Exception exception) {
         this.exception = exception;
     }
 

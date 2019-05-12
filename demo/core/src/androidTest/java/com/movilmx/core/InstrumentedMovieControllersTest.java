@@ -28,7 +28,7 @@ public class InstrumentedMovieControllersTest {
         movieClient = MovieClient.newInstance(
                 InstrumentationRegistry.getContext(),
                 BuildConfig.THEMOVIE);
-        movieControllers = MovieControllers.getInstance(InstrumentationRegistry.getContext());
+        movieControllers = MovieControllers.newInstance(InstrumentationRegistry.getContext());
     }
 
     /**

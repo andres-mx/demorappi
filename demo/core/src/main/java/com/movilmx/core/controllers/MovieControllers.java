@@ -14,6 +14,8 @@ import com.movilmx.networkcontroller.models.popular.Popular;
 import com.movilmx.networkcontroller.models.topRated.response.TopRated;
 import com.movilmx.networkcontroller.models.upComing.UpComing;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,14 +27,20 @@ public class MovieControllers extends AbstractMovieController {
         super(client);
     }
 
-    public static MovieControllers getInstance(Context context) throws Exception{
-        if (null == movieControllers){
-            movieControllers = new MovieControllers(MovieClient.newInstance(
-                    context, BuildConfig.THEMOVIE));
+    public static MovieControllers getInstance() throws Exception{
+        if (movieControllers == null) {
+            throw new NullPointerException("You should be call first CartGroceriesController#newInstance method");
         }
-
         return movieControllers;
     }
+
+    public static MovieControllers newInstance(Context context) throws IOException {
+        if (movieControllers == null){
+            movieControllers = new MovieControllers(MovieClient.newInstance(context, BuildConfig.THEMOVIE));
+        }
+        return movieControllers;
+    }
+
 
     @Override
     public void requestMovies(String numberPage, final MovieControllerNotifier movieControllerNotifier)
