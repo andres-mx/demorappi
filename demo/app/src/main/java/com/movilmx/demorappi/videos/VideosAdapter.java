@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.movilmx.core.ui.UIEvent;
 import com.movilmx.core.videos.Videos;
 import com.movilmx.demorappi.R;
 
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 
 public class VideosAdapter extends RecyclerView.Adapter<VideosHolder> {
 
-    public VideosAdapter(){
-
+    public VideosAdapter(UIEvent uiEvent){
+        this.uiEvent = uiEvent;
     }
 
     @NonNull
@@ -23,7 +24,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosHolder> {
         return new VideosHolder(
                 LayoutInflater
                         .from(viewGroup.getContext())
-                        .inflate(R.layout.item_video, viewGroup, false));
+                        .inflate(R.layout.item_video, viewGroup, false), uiEvent);
     }
 
     @Override
@@ -40,6 +41,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosHolder> {
     }
 
     private ArrayList<Videos> videos;
+    private UIEvent           uiEvent;
 
     public void setVideos(ArrayList<Videos> videos) {
         this.videos = videos;

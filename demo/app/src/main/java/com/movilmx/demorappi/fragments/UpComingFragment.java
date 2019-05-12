@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.movilmx.core.communication.MovieControllerObject;
 import com.movilmx.core.ui.GFragment;
+import com.movilmx.core.ui.UIEventType;
+import com.movilmx.core.ui.UIObject;
 import com.movilmx.core.videos.Container;
 import com.movilmx.demorappi.R;
 import com.movilmx.demorappi.videos.VideosAdapter;
@@ -41,9 +43,22 @@ public class UpComingFragment extends GFragment {
         }
     }
 
+    @Override
+    public void event(UIEventType eventType, UIObject uiObject) {
+        super.event(eventType, uiObject);
+        switch (eventType){
+            case HOLDERCLICK:{
+                int id = uiObject.getHolderPosition();
+                detailVideo(id, videoContainer.getVideos().get(id));
+                break;
+            }
+        }
+    }
+
+
     private void drawList(){
         try{
-            videosAdapter = new VideosAdapter();
+            videosAdapter = new VideosAdapter(this);
             rvVideos     .setAdapter(videosAdapter);
             videosAdapter.setVideos(videoContainer.getVideos());
         }catch(Exception e){

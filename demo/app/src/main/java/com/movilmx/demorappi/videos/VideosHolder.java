@@ -1,5 +1,6 @@
 package com.movilmx.demorappi.videos;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +10,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movilmx.core.constants.Constants;
+import com.movilmx.core.ui.UIEvent;
+import com.movilmx.core.ui.UIEventType;
+import com.movilmx.core.ui.UIObject;
 import com.movilmx.core.videos.Videos;
 import com.movilmx.demorappi.R;
 import com.squareup.picasso.Picasso;
@@ -16,12 +20,16 @@ import com.squareup.picasso.Picasso;
 public class VideosHolder extends RecyclerView.ViewHolder {
     private static final String TAG = VideosHolder.class.getSimpleName();
 
-    public VideosHolder(@NonNull View itemView) {
+    public VideosHolder(@NonNull View itemView, UIEvent event) {
         super(itemView);
         rootView = itemView;
+        uiEvent  = event;
         assignViews();
         rootView.setOnClickListener(v -> {
-
+            uiEvent.event(
+                    UIEventType.HOLDERCLICK,
+                    new UIObject()
+                            .setHolderPosition(getAdapterPosition()));
         });
     }
 
@@ -49,4 +57,5 @@ public class VideosHolder extends RecyclerView.ViewHolder {
     private CardView  cvContainer;
     private ImageView ivVideoImage;
     private TextView  tvTitle;
+    private UIEvent   uiEvent;
 }

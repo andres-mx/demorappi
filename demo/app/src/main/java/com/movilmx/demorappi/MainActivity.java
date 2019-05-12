@@ -5,13 +5,19 @@ import android.util.Log;
 import android.widget.FrameLayout;
 
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.movilmx.core.ui.GenericActivity;
 import com.movilmx.core.ui.GenericFragment;
 import com.movilmx.core.ui.GenericFragmentFactory;
+import com.movilmx.demorappi.fragments.DetailVideoFragment;
 import com.movilmx.demorappi.fragments.PopularFragment;
 import com.movilmx.demorappi.fragments.TopRatedFragment;
 import com.movilmx.demorappi.fragments.UpComingFragment;
+import com.movilmx.demorappi.fragments.VFragmentFactory;
 
 public class MainActivity extends GenericActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -34,13 +40,38 @@ public class MainActivity extends GenericActivity {
     }
 
     @Override
-    public <T extends GenericFragment> void addFragment(T fragment) {
+    public void addFragment(GenericFragment fragment) {
+        Log.d(TAG, "addFragment() called with: fragment = [" + fragment + "]");
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fAdded = getSupportFragmentManager().findFragmentByTag(fragment.getClass().getSimpleName());
+        /*el fragmento ya fue agregado, y no es pdp */
+        if(fAdded != null && !fAdded.getClass().getSimpleName().equals(DetailVideoFragment.TAG) &&fAdded.isAdded()){//Si el fragmento fue previamente agregado
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            while (fragmentManager.getBackStackEntryCount() > 0) {
+                final int last = fragmentManager.getBackStackEntryCount() - 1;
+                final FragmentManager.BackStackEntry entry =
+                        fragmentManager.getBackStackEntryAt(last);
+                if (fragment.getClass().getSimpleName().equals(entry.getName())) {
+                    break;
+                }
+                fragmentManager.popBackStackImmediate();
+            }
+
+            fragmentTransaction.show(fragment);
+            fragmentTransaction.commit();
+        }else {//Si no fue agregado, lo agregamos.
+            fragmentManager.beginTransaction()
+                    .add(flContainer.getId(), fragment, fragment.getClass().getSimpleName())
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .addToBackStack(fragment.getClass().getSimpleName())
+                    .commit();
+        }
     }
 
     @Override
-    public <T extends GenericFragmentFactory> T getFragmentsFactory() {
-        return null;
+    public VFragmentFactory getFragmentsFactory() {
+        return vFragmentFactory;
     }
 
     private void assignViews(){
@@ -82,6 +113,10 @@ public class MainActivity extends GenericActivity {
         });
     }
 
+    /**
+     * fabrica de fragmentos mostrados en UI
+     */
+    private VFragmentFactory     vFragmentFactory = new VFragmentFactory();
     private BottomNavigationView bnvContainer;
     private FrameLayout          flContainer;
     private PopularFragment      popularFragment  = new PopularFragment();
