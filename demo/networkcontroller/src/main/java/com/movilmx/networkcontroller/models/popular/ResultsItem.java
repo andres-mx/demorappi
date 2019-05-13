@@ -33,10 +33,10 @@ public class ResultsItem{
 	private String releaseDate;
 
 	@SerializedName("vote_average")
-	private double voteAverage;
+	private float voteAverage;
 
 	@SerializedName("popularity")
-	private double popularity;
+	private float popularity;
 
 	@SerializedName("id")
 	private int id;
@@ -119,19 +119,19 @@ public class ResultsItem{
 		return releaseDate;
 	}
 
-	public void setVoteAverage(double voteAverage){
+	public void setVoteAverage(float voteAverage){
 		this.voteAverage = voteAverage;
 	}
 
-	public double getVoteAverage(){
+	public float getVoteAverage(){
 		return voteAverage;
 	}
 
-	public void setPopularity(double popularity){
+	public void setPopularity(float popularity){
 		this.popularity = popularity;
 	}
 
-	public double getPopularity(){
+	public float getPopularity(){
 		return popularity;
 	}
 

@@ -21,7 +21,7 @@ public class DetailMovie{
 	private String backdropPath;
 
 	@SerializedName("revenue")
-	private int revenue;
+	private float revenue;
 
 	@SerializedName("genres")
 	private List<GenresItem> genres;
@@ -63,7 +63,7 @@ public class DetailMovie{
 	private String releaseDate;
 
 	@SerializedName("vote_average")
-	private int voteAverage;
+	private float voteAverage;
 
 	@SerializedName("belongs_to_collection")
 	private Object belongsToCollection;
@@ -120,11 +120,11 @@ public class DetailMovie{
 		return backdropPath;
 	}
 
-	public void setRevenue(int revenue){
+	public void setRevenue(float revenue){
 		this.revenue = revenue;
 	}
 
-	public int getRevenue(){
+	public float getRevenue(){
 		return revenue;
 	}
 
@@ -232,11 +232,11 @@ public class DetailMovie{
 		return releaseDate;
 	}
 
-	public void setVoteAverage(int voteAverage){
+	public void setVoteAverage(float voteAverage){
 		this.voteAverage = voteAverage;
 	}
 
-	public int getVoteAverage(){
+	public float getVoteAverage(){
 		return voteAverage;
 	}
 
