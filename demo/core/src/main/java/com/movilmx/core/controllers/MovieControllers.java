@@ -47,7 +47,7 @@ public class MovieControllers extends AbstractMovieController {
     @Override
     public void requestMovies(String numberPage, final MovieControllerNotifier movieControllerNotifier) {
         Call<TopRated> call = getClient().getMovieService().getTopRated
-                ("1", "cf689d1c71b97032eca0391929094623");
+                ("1", BuildConfig.APIKEY);
         call.enqueue(new Callback<TopRated>() {
             @Override
             public void onResponse(Call<TopRated> call, Response<TopRated> response) {
@@ -87,7 +87,7 @@ public class MovieControllers extends AbstractMovieController {
     @Override
     public void requestUpComing(String numberPage, MovieControllerNotifier movieControllerNotifier){
         Call<UpComing> call = getClient().getMovieService().getUpComing
-                ("1", "cf689d1c71b97032eca0391929094623");
+                ("1", BuildConfig.APIKEY);
         call.enqueue(new Callback<UpComing>() {
             @Override
             public void onResponse(Call<UpComing> call, Response<UpComing> response) {
@@ -127,7 +127,7 @@ public class MovieControllers extends AbstractMovieController {
     @Override
     public void requestPopular(String numberPage, MovieControllerNotifier movieControllerNotifier) {
         Call<Popular> call = getClient().getMovieService().getPopular
-                ("1", "cf689d1c71b97032eca0391929094623");
+                ("1", BuildConfig.APIKEY);
         call.enqueue(new Callback<Popular>() {
             @Override
             public void onResponse(Call<Popular> call, Response<Popular> response) {
@@ -166,7 +166,7 @@ public class MovieControllers extends AbstractMovieController {
 
     @Override
     public void requestDetailVideo(String videoId, MovieControllerNotifier movieControllerNotifier) {
-        Call<DetailMovie> call = getClient().getMovieService().getDetailMovie(videoId, "cf689d1c71b97032eca0391929094623");
+        Call<DetailMovie> call = getClient().getMovieService().getDetailMovie(videoId, BuildConfig.APIKEY);
         call.enqueue(new Callback<DetailMovie>() {
             @Override
             public void onResponse(Call<DetailMovie> call, Response<DetailMovie> response) {
@@ -176,7 +176,6 @@ public class MovieControllers extends AbstractMovieController {
                 try{
                     if (null != response){
 //                        Container container = Middleware.cleanResponse(response.body());
-                        Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
                         DetailMovie detailMovie = response.body();
                         movieControllerObjectBuilder.setCode(0)
                                 .setMsg("OK")

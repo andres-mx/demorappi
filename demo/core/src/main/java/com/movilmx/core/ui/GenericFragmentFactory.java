@@ -8,5 +8,5 @@ public abstract class GenericFragmentFactory {
      * @param video objeto que se utiliza para dibujar el detalle de un vídeo
      * @return fragmento que despliega el detalle de un vídeo
      */
-    public abstract GenericFragment getMovieDetailFragment(int videoId, Videos video);
+    public abstract GenericFragment getMovieDetailFragment(String videoId, Videos video);
 }

@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "THEMOVIE", "\"https:/api.themoviedb.org/3/\"")
         buildConfigField("String", "URLIMAGES", "\"https://image.tmdb.org/t/p/w342\"")
-
+        buildConfigField("String", "APIKEY", "\"cf689d1c71b97032eca0391929094623\"")
     }
 
     buildTypes {

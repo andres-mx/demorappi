@@ -3,6 +3,7 @@ package com.movilmx.core.videos;
 import java.util.ArrayList;
 
 public class Container {
+    private int pageNumber;
     /**
      * Arregló de videos despúes de la limpieza del consumo de un servicio
      */
@@ -25,5 +26,13 @@ public class Container {
 
             videos.add(video);
         }
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
     }
 }

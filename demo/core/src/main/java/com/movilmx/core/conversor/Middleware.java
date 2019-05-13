@@ -17,6 +17,7 @@ public class Middleware {
 
         if (data instanceof Popular){
             Popular popular = (Popular) data;
+            container.setPageNumber(popular.getPage()+1);
             if (null != popular.getResults() && popular.getResults().size()>0){
                 for (ResultsItem r: popular.getResults()) {
                     Videos videos = cleanVideos(r);
@@ -28,6 +29,7 @@ public class Middleware {
             }
         }else if (data instanceof TopRated){
             TopRated topRated = (TopRated) data;
+            container.setPageNumber(topRated.getPage()+1);
             if (null != topRated.getResults() && topRated.getResults().size()>0){
                 for (ResultsItem r: topRated.getResults()) {
                     Videos videos = cleanVideos(r);
@@ -39,6 +41,7 @@ public class Middleware {
             }
         }else if (data instanceof UpComing){
             UpComing upComing = (UpComing) data;
+            container.setPageNumber(upComing.getPage()+1);
             if (null != upComing.getResults() && upComing.getResults().size()>0){
                 for (ResultsItem r: upComing.getResults()) {
                     Videos videos = cleanVideos(r);
@@ -72,6 +75,10 @@ public class Middleware {
                 videos.setDescription(resultsItem.getOverview());
                 videos.setImage(resultsItem.getPosterPath());
                 videos.setId(resultsItem.getId());
+                videos.setDate(resultsItem.getReleaseDate());
+                videos.setPopularity(resultsItem.getPopularity());
+                videos.setVoteAverage(resultsItem.getVoteAverage());
+                videos.setVoteCount(resultsItem.getVoteCount());
 
             }
         }catch(Exception e){

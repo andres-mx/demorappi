@@ -17,7 +17,7 @@ public class GFragment extends GenericFragment implements MovieControllerNotifie
         super.setRootView(rootView);
     }
 
-    public void detailVideo(int id, Videos videos){
+    public void detailVideo(String id, Videos videos){
         getGActivity().addFragment(
                 getGActivity()
                         .getFragmentsFactory()
