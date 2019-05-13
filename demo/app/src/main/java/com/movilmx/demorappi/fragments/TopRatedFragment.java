@@ -38,6 +38,7 @@ public class TopRatedFragment extends GFragment {
         switch (eventType){
             case TOPRATED:{
                 videoContainer = (Container) movieControllerObject.getData();
+                pageNumber     = videoContainer.getPageNumber();
                 drawList();
                 break;
             }
@@ -50,7 +51,8 @@ public class TopRatedFragment extends GFragment {
         switch (eventType){
             case HOLDERCLICK:{
                 int id = uiObject.getHolderPosition();
-                detailVideo(id, videoContainer.getVideos().get(id));
+                detailVideo(String.valueOf(videoContainer.getVideos().get(id).getId()),
+                        videoContainer.getVideos().get(id));
                 break;
             }
         }
@@ -72,10 +74,11 @@ public class TopRatedFragment extends GFragment {
         rvVideos = getRootView().findViewById(R.id.rv_videos);
         rvVideos.setHasFixedSize(true);
         rvVideos.setItemViewCacheSize(10);
-        getMovieController().requestMovies("1", this);
+        getMovieController().requestMovies(String.valueOf(pageNumber), this);
     }
 
     private RecyclerView      rvVideos;
     private VideosAdapter     videosAdapter;
     private Container         videoContainer;
+    private int               pageNumber = 1;
 }

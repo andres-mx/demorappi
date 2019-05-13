@@ -2,9 +2,12 @@ package com.movilmx.demorappi;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,14 +15,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.movilmx.core.ui.GenericActivity;
 import com.movilmx.core.ui.GenericFragment;
-import com.movilmx.core.ui.GenericFragmentFactory;
 import com.movilmx.demorappi.fragments.DetailVideoFragment;
 import com.movilmx.demorappi.fragments.PopularFragment;
 import com.movilmx.demorappi.fragments.TopRatedFragment;
 import com.movilmx.demorappi.fragments.UpComingFragment;
 import com.movilmx.demorappi.fragments.VFragmentFactory;
 
-public class MainActivity extends GenericActivity {
+public class MainActivity extends GenericActivity{
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -36,7 +38,6 @@ public class MainActivity extends GenericActivity {
                 .hide(upComingFragment)
                 .show(popularFragment)
                 .commit();
-
     }
 
     @Override
@@ -61,6 +62,7 @@ public class MainActivity extends GenericActivity {
             fragmentTransaction.show(fragment);
             fragmentTransaction.commit();
         }else {//Si no fue agregado, lo agregamos.
+            showBackButton(true);
             fragmentManager.beginTransaction()
                     .add(flContainer.getId(), fragment, fragment.getClass().getSimpleName())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -74,6 +76,19 @@ public class MainActivity extends GenericActivity {
         return vFragmentFactory;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        showBackButton(false);
+    }
+
+    private void showBackButton(boolean enable) {
+        if (enable){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }else {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+    }
     private void assignViews(){
         bnvContainer = findViewById(R.id.bnv_container);
         flContainer  = findViewById(R.id.fl_container);
@@ -122,4 +137,16 @@ public class MainActivity extends GenericActivity {
     private PopularFragment      popularFragment  = new PopularFragment();
     private TopRatedFragment     topRatedFragment = new TopRatedFragment();
     private UpComingFragment     upComingFragment = new UpComingFragment();
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                onBackPressed();
+                break;
+            }
+        }
+
+        return true;
+    }
 }

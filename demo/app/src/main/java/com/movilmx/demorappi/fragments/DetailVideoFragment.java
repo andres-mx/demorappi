@@ -3,18 +3,23 @@ package com.movilmx.demorappi.fragments;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.movilmx.core.communication.MovieControllerObject;
+import com.movilmx.core.constants.Constants;
 import com.movilmx.core.ui.GFragment;
 import com.movilmx.core.videos.Videos;
 import com.movilmx.demorappi.R;
+import com.squareup.picasso.Picasso;
 
 public class DetailVideoFragment extends GFragment {
 
-    public static DetailVideoFragment newInstance(int videoId, Videos video) {
+    public static DetailVideoFragment newInstance(String videoId, Videos video) {
         DetailVideoFragment fragment = new DetailVideoFragment();
         fragment.videoId = videoId;
         fragment.video   = video;
@@ -31,6 +36,7 @@ public class DetailVideoFragment extends GFragment {
                         container,
                         false));
         assignViews();
+        drawList();
         return getRootView();
     }
 
@@ -39,8 +45,8 @@ public class DetailVideoFragment extends GFragment {
                                      MovieControllerObject movieControllerObject) {
         super.movieControllerEvent(eventType, movieControllerObject);
         switch (eventType) {
-            case POPULAR: {
-                drawList();
+            case DETAILVIDEO: {
+                Log.d(TAG, "movieControllerEvent() called with: eventType = [" + eventType + "], movieControllerObject = [" + movieControllerObject.getData() + "]");
                 break;
             }
         }
@@ -48,17 +54,38 @@ public class DetailVideoFragment extends GFragment {
 
     private void drawList() {
         try {
-
+            Picasso.with(getContext())
+                    .load(Constants.getUrlImage(video.getImage()))
+                    .into(ivVideos);
+            tvTitle.setText(video.getTitle());
+            tvDescription.setText(video.getDescription());
+            tvVoteCount.setText(tvVoteCount.getText().toString()
+                    + String.format("%.0f", video.getVoteCount()));
+            tvVoteAverage.setText(String.format(
+                    "%s%s", tvVoteAverage.getText().toString(), video.getVoteAverage()));
+            tvPopularity.setText(tvPopularity.getText().toString()
+                    + String.format("%.0f", video.getPopularity()));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void assignViews() {
-
+        ivVideos      = getRootView().findViewById(R.id.iv_video);
+        tvTitle       = getRootView().findViewById(R.id.tv_title);
+        tvDescription = getRootView().findViewById(R.id.tv_description);
+        tvVoteCount   = getRootView().findViewById(R.id.tv_vote_count);
+        tvVoteAverage = getRootView().findViewById(R.id.tv_vote_average);
+        tvPopularity  = getRootView().findViewById(R.id.tv_popularity);
+//        getMovieController().requestDetailVideo(videoId, this);
     }
 
-    private int    videoId;
-    private Videos video;
-
+    private String    videoId;
+    private Videos    video;
+    private ImageView ivVideos;
+    private TextView  tvTitle;
+    private TextView  tvDescription;
+    private TextView  tvVoteCount;
+    private TextView  tvVoteAverage;
+    private TextView  tvPopularity;
 }

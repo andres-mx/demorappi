@@ -7,7 +7,7 @@ import com.movilmx.core.videos.Videos;
 public class VFragmentFactory extends GenericFragmentFactory {
     public VFragmentFactory(){}
     @Override
-    public GenericFragment getMovieDetailFragment(int videoId, Videos video) {
+    public GenericFragment getMovieDetailFragment(String videoId, Videos video) {
         DetailVideoFragment detailVideoFragment = DetailVideoFragment.newInstance(videoId, video);
         return detailVideoFragment;
     }

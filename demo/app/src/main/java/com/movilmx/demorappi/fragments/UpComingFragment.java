@@ -37,6 +37,7 @@ public class UpComingFragment extends GFragment {
         switch (eventType){
             case UPCOMING:{
                 videoContainer = (Container) movieControllerObject.getData();
+                pageNumber     = videoContainer.getPageNumber();
                 drawList();
                 break;
             }
@@ -49,7 +50,8 @@ public class UpComingFragment extends GFragment {
         switch (eventType){
             case HOLDERCLICK:{
                 int id = uiObject.getHolderPosition();
-                detailVideo(id, videoContainer.getVideos().get(id));
+                detailVideo(String.valueOf(videoContainer.getVideos().get(id).getId()),
+                        videoContainer.getVideos().get(id));
                 break;
             }
         }
@@ -70,10 +72,11 @@ public class UpComingFragment extends GFragment {
         rvVideos = getRootView().findViewById(R.id.rv_videos);
         rvVideos.setHasFixedSize(true);
         rvVideos.setItemViewCacheSize(10);
-        getMovieController().requestUpComing("1", this);
+        getMovieController().requestUpComing(String.valueOf(pageNumber), this);
     }
 
     private RecyclerView      rvVideos;
     private VideosAdapter     videosAdapter;
     private Container         videoContainer;
+    private int               pageNumber = 1;
 }

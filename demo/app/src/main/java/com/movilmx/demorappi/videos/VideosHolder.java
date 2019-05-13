@@ -40,6 +40,7 @@ public class VideosHolder extends RecyclerView.ViewHolder {
                 .load(Constants.getUrlImage(videos.getImage()))
                 .resize(Constants.dpToPx(75),Constants.dpToPx(75))
                 .into(ivVideoImage);
+        tvDate.setText(videos.getDate());
     }
 
     private void assignViews(){
@@ -47,6 +48,7 @@ public class VideosHolder extends RecyclerView.ViewHolder {
             cvContainer  = rootView.findViewById(R.id.cv_container);
             ivVideoImage = rootView.findViewById(R.id.iv_video_image);
             tvTitle      = rootView.findViewById(R.id.tv_title);
+            tvDate       = rootView.findViewById(R.id.tv_date);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -57,5 +59,6 @@ public class VideosHolder extends RecyclerView.ViewHolder {
     private CardView  cvContainer;
     private ImageView ivVideoImage;
     private TextView  tvTitle;
+    private TextView  tvDate;
     private UIEvent   uiEvent;
 }
