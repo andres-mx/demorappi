@@ -15,3 +15,14 @@ Esta aplicación esta desarrollada con Java android nativo, actualmente se esta 
  Este paquete fue escrito para tener toda la parte UI, la cuál consume cosas de **Core** y **networkcontroller** para solicitar información para pintar
 
 Actualmente se han incluido proyectos de código abierto como **Retrofit**, **GSON**, **Picasso** y se han realizado mejoras para adaptarlos a la demo.
+
+### ¿En qué consiste el principio de responsabilidad única?
+R.- En los principios de SOLID, delegar una sola responsibilidad a una clase o método, es de buena prática si solo vas a pintar un UI que solo realice esa acción, no debería realizar otra tarea más, eso debería ser delegado a otra clase o método.
+
+### ¿Cuál es su propósito?
+R.- Basado en lo que manejo día con día ayuda mucho a tener código administrado de tal forma que si necesito hacer operaciones matemáticas tengo un método que lo pueda resolver y es posible que al tener este método puedo utilizarlo en otro negocio.
+
+### ¿Qué características  tiene, según su opinión, un "buen" código o código limpio?
+R.- Reutilización de clases 
+    Es más fácil de leer el código 
+    Menos tiempo en la curva de aprendizaje
