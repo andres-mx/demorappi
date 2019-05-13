@@ -4,7 +4,7 @@ Descripción de la arquitectura y el diseño de la aplicación.
 
 ## Acerca de la aplicación
 
-Esta aplicación esta desarrollada con Java android nativo, actualmente se esta incluyendo una arquitetura en 3 capas app, core y networkcontroller
+Esta aplicación esta desarrollada con Java android nativo, actualmente se esta incluyendo una arquitetura en 3 capas **App**, **Core** y **NetworkController**
 
 ### NetworkController
  Este paquete fue escrito con el fin de manejar los POJOS y el cliente de retrofit para el request y response de los servicios de vídeo
@@ -20,7 +20,7 @@ Actualmente se han incluido proyectos de código abierto como **Retrofit**, **GS
 R.- En los principios de SOLID, delegar una sola responsibilidad a una clase o método, es de buena prática si solo vas a pintar un UI que solo realice esa acción, no debería realizar otra tarea más, eso debería ser delegado a otra clase o método.
 
 ### ¿Cuál es su propósito?
-R.- Basado en lo que manejo día con día ayuda mucho a tener código administrado de tal forma que si necesito hacer operaciones matemáticas tengo un método que lo pueda resolver y es posible que al tener este método puedo utilizarlo en otro negocio.
+R.- Tener código más administrado, que un sólo método o función realice tareas específicas, para que sea fácil de reutilizar.
 
 ### ¿Qué características  tiene, según su opinión, un "buen" código o código limpio?
 R.- Reutilización de clases 
