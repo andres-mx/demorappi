@@ -54,7 +54,7 @@ public class DetailVideoFragment extends GFragment {
 
     private void drawList() {
         try {
-            Picasso.with(getContext())
+            Picasso.get()
                     .load(Constants.getUrlImage(video.getImage()))
                     .into(ivVideos);
             tvTitle.setText(video.getTitle());

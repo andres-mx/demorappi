@@ -36,7 +36,7 @@ public class VideosHolder extends RecyclerView.ViewHolder {
     public void bind(Videos videos){
         uiVideo = videos;
         tvTitle.setText(videos.getTitle());
-        Picasso.with(cvContainer.getContext())
+        Picasso.get()
                 .load(Constants.getUrlImage(videos.getImage()))
                 .resize(Constants.dpToPx(75),Constants.dpToPx(75))
                 .into(ivVideoImage);
